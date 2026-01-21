@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../services/firestore_service.dart';
 import '../services/firebase_auth_service.dart';
+import 'congratulations_screen.dart';
 
 /// Example Tasks Screen demonstrating Real-Time Firestore Integration
 class TasksScreen extends StatefulWidget {
@@ -61,6 +62,11 @@ class _TasksScreenState extends State<TasksScreen> {
         taskId: taskId,
         completed: !currentStatus,
       );
+
+      // Show congratulations when marking as complete
+      if (!currentStatus && mounted) {
+        await CongratulationsScreen.show(context);
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
